@@ -99,21 +99,70 @@ xlabels <- stringr::str_wrap(xlabels, width = 20)
 #' bubbles are coloured. Bubble size is indicated by a fourth variable 'n'.
 bubbleplot <- function(data, 
                        x_var, 
+                       xlabels ='',
                        y_var, 
+                       ylabels = '',
                        clr_var, #variable by which bubbles are coloured
                        n, #variable for number of studies in the cell
-                       offset_x, 
-                       offset_y,
+                       wrap_width = '10',
                        bg_col = '#BFD5E3',
                        title,
                        subtitle,
                        x_title,
                        y_title,
-                       clr_by){
+                       clr_by_name,
+                       palette = 'Set2'){
+
+    #ensure input variables are numeric for offset to work
+  if(is.numeric(x_var) == FALSE){
+    xlabels <- stringr::str_to_sentence(unique(tolower(x_var)))
+    x_var <- c(factor(x_var, order = TRUE))
+  }
+  if(is.numeric(y_var) == FALSE){
+    ylabels <- str_to_sentence(unique(tolower(y_var)))
+    y_var <- c(factor(y_var, order = TRUE))
+  }
+  
+  #remove NAs from dataframe
+  #data <- na.omit(data)
+  
+  #if axis label inputs are blank, use numerical values instead
+  if(paste(xlabels, collapse = '') == ''){
+    xlabels <- as.character(1:length(unique(x_var)))
+  }
+  if(paste(ylabels, collapse = '') == ''){
+    ylabels <- as.character(1:length(unique(y_var)))
+  }
+  
+  #wrap axis labels
+  xlabels <- stringr::str_wrap(xlabels, width = wrap_width)
+  ylabels <- stringr::str_wrap(ylabels, width = wrap_width)
+  
+  #create offset table
+  mtrxn <- length(unique(clr_var)) #number of bubbles needed
+  #matrix positions (max n = 5)
+  pos0 <- c(offset_x = 0, offset_y = 0) 
+  pos1 <- c(offset_x = -0.2, offset_y = 0.2)
+  pos2 <- c(offset_x = 0.2, offset_y = 0.2)
+  pos3 <- c(offset_x = 0.2, offset_y = -0.2)
+  pos4 <- c(offset_x = -0.2, offset_y = -0.2)
+  #offset positions based on number of bubbles needed
+  n1 <- cbind(n = 1, rbind(pos0)) 
+  n2 <- cbind(n = 2, rbind(pos1, pos2))
+  n3 <- cbind(n = 3, rbind(pos1, pos2, pos3))
+  n4 <- cbind(n = 4, rbind(pos1, pos2, pos3, pos4))
+  n5 <- cbind(n = 5, rbind(pos0, pos1, pos2, pos3, pos4))
+  mtrxlookup <- as.data.frame(rbind(n1,n2,n3,n4,n5))
+  clr_by_name <- c(unique(clr_var))
+  offset_table <- cbind(clr_by_name, filter(mtrxlookup, n == mtrxn)[,2:3])
+  data <- merge(data, offset_table, all.x = TRUE, by.x = clr_by,  by.y = 'clr_by_name')
+  
+  #create plot
   x <- data %>%
     ggplot(mapping = aes (x=(x_var + offset_x), 
-                          y=(y_var + offset_y),
-                          text = sprintf('<a href="mailto:neal_haddaway@hotmail.com">Email</a>', outcome, inst))) +
+                          y=(y_var + offset_y)#,
+                          #text = sprintf('<a href="mailto:neal_haddaway@hotmail.com">Email</a>', outcome, inst)
+                          )) +
     geom_hline(yintercept = (2:length(unique(y_var))-0.5), 
                colour = 'white', 
                size = .7, 
@@ -126,8 +175,8 @@ bubbleplot <- function(data,
                    size = n)) +
     scale_size(range = c(.1, 6), 
                name = 'Number of studies') + 
-    scale_color_brewer(palette="Set2",
-                       name = clr_by,
+    scale_color_brewer(palette = palette,
+                       name = clr_by_name,
                        guide = FALSE) +
     theme(panel.grid.major = element_blank(),
           panel.grid.minor = element_blank(),
@@ -147,11 +196,11 @@ bubbleplot <- function(data,
          x = x_title, 
          y = y_title) +
     scale_y_continuous(labels = ylabels, 
-                       breaks = 1:8, 
-                       limits = c(0.8,8.2)) +
+                       breaks = 1:length(ylabels), 
+                       limits = c(0.8,(length(ylabels)+0.2))) +
     scale_x_continuous(labels = xlabels, 
-                       breaks = 1:6, 
-                       limits = c(0.8,6.2)) + 
+                       breaks = 1:length(xlabels), 
+                       limits = c(0.8,(length(xlabels)+0.2))) + 
     guides(
            size = guide_legend(override.aes = list(colour = '#444444')))
   y <- ggplotly(x)
@@ -164,29 +213,10 @@ bubbleplot(data = data4plot,
          y_var = outcome, 
          clr_var = data4plot$loc,
          n = n,
-         offset_x = offset_x, 
-         offset_y = offset_y,
          bg_col = '#F1EFF3',
          title = 'title',
          subtitle = 'subtitle',
-         x_title = 'Outcome',
-         y_title = 'Institution',
-         clr_by = 'Location')
-
-
-library(dash)
-library(dashCoreComponents)
-library(dashHtmlComponents)
-
-y <- plot_ly(x)
-
-app <- Dash$new()
-app$layout(
-  htmlDiv(
-    list(
-      dccGraph(figure=y) 
-    )
-  )
-)
-
-app$run_server(debug=TRUE, dev_tools_hot_reload=FALSE)
+         x_title = 'Institution',
+         y_title = 'Outcome',
+         clr_by = 'loc',
+         palette = 'Set2')
