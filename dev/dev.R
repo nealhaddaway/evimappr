@@ -118,21 +118,23 @@ bubbleplot <- function(x_var,
                alpha=0.8) +
     geom_point(aes(colour = clr_var, 
                    size = n)) +
-    scale_size(range = c(.1, 6), 
-               name = 'Number of studies') + 
     scale_color_brewer(palette = palette,
-                       name = clr_by_name,
-                       guide = FALSE) +
+                       guide = FALSE,
+                       name = 'Bubbles') +
+    scale_size(range = c(.1, 6), 
+               name = '',
+               guide = FALSE
+               ) + 
     theme(panel.grid.major = element_blank(),
           panel.grid.minor = element_blank(),
           panel.background = element_rect(fill = bg_col,
                                           size = 2, 
                                           linetype = "solid"),
-          axis.text.x = element_text(size = 10, 
+          axis.text.x = element_text(size = 8, 
                                      angle = 45,
                                      hjust=0.95,
                                      vjust=0.95), 
-          axis.text.y = element_text(size = 10, 
+          axis.text.y = element_text(size = 8, 
                                      angle = 45,
                                      hjust=0.8,
                                      vjust=0.95)) +
@@ -145,9 +147,7 @@ bubbleplot <- function(x_var,
                        limits = c(0.8,(length(ylabels)+0.2))) +
     scale_x_continuous(labels = xlabels, 
                        breaks = 1:length(xlabels), 
-                       limits = c(0.8,(length(xlabels)+0.2))) + 
-    guides(
-           size = guide_legend(override.aes = list(colour = '#444444')))
+                       limits = c(0.8,(length(xlabels)+0.2)))
   y <- ggplotly(x)
   layout(y, hovermode = 'closest')
 }
@@ -165,6 +165,5 @@ bubbleplot(x_var = data4plot$inst,
          y_title = 'Outcome',
          clr_by_name = 'loc',
          palette = 'Set2',
-         wrap_width = '10')
-
+         wrap_width = '14')
 
