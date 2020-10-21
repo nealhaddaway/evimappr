@@ -35,70 +35,14 @@ none <- subset(plotdat, loc == locations[9])
 plotdat2 <- rbind(rest, usca)
 plotdat2$loc
 
-#create offset table for bubble position
-xpos <- c(0.2, -0.2)
-ypos <- c(0.2, -0.2)
-loc <- c('Rest of Europe', 'USA/Canada')
-offset_table <- data.frame(loc = loc, offset_x = xpos, offset_y = ypos)
-
-#apply offset values to data for the plot
-data4plot <- plotdat2 %>%
-  left_join(by = c("loc" = "loc"), y = offset_table)
-
-data4plot$outcome <- as.factor(data4plot$outcome)
-levels(data4plot$outcome)[levels(data4plot$outcome) == "Behaviour and Social Wellbeing"] <- "1"
-levels(data4plot$outcome)[levels(data4plot$outcome) == "Literacy/English"] <- "2"
-levels(data4plot$outcome)[levels(data4plot$outcome) == "Numeracy/Maths"] <- "3"
-levels(data4plot$outcome)[levels(data4plot$outcome) == "Other School Subjects"] <- "4"
-levels(data4plot$outcome)[levels(data4plot$outcome) == "physical Health and Wellbeing"] <- "5"
-levels(data4plot$outcome)[levels(data4plot$outcome) == "Physical Health and Wellbeing"] <- "5"
-levels(data4plot$outcome)[levels(data4plot$outcome) == "Professional Training"] <- "6"
-levels(data4plot$outcome)[levels(data4plot$outcome) == "Range of Academic Outcomes"] <- "7"
-levels(data4plot$outcome)[levels(data4plot$outcome) == "Study-Related Skills"] <- "8"
-data4plot$outcome <- as.numeric(data4plot$outcome)
-
-data4plot$inst <- as.factor(data4plot$inst)
-levels(data4plot$inst)[levels(data4plot$inst) == "College/University"] <- "1"
-levels(data4plot$inst)[levels(data4plot$inst) == "Middle/High School"] <- "2"
-levels(data4plot$inst)[levels(data4plot$inst) == "Multiple"] <- "3"
-levels(data4plot$inst)[levels(data4plot$inst) == "Preschool/Kindergarten"] <- "4"
-levels(data4plot$inst)[levels(data4plot$inst) == "Primary/Elementary"] <- "5"
-levels(data4plot$inst)[levels(data4plot$inst) == "Special School"] <- "6"
-data4plot$inst <- as.numeric(data4plot$inst)
-
-#remove NA
-data4plot <- na.omit(data4plot)
-
+data4plot <- rbind(africa, asia, austnz, usca, ukire)
 
 #make static
 library(hrbrthemes)
 library(ggBubbles)
 
-ylabels <- c("Behaviour and Social Wellbeing", 
-             "Literacy/English", 
-             "Numeracy/Maths",
-             "Other School Subjects",
-             "Physical Health and Wellbeing",
-             "Professional Training",
-             "Range of Academic Outcomes",
-             "Study-Related Skills")
-ylabels <- stringr::str_wrap(ylabels, width = 20)
-xlabels <- c("College/University",
-             "Middle/High School",
-             "Multiple",
-             "Preschool/Kindergarten", 
-             "Primary/Elementary", 
-             "Special School")
-xlabels <- stringr::str_wrap(xlabels, width = 20)
-
-
-
 #as function
-#' @param data A dataframe consisting of pairwise x- and y- axis variables 
-#' (x_var and y_var, respectively) grouped by a third variable, by which 
-#' bubbles are coloured. Bubble size is indicated by a fourth variable 'n'.
-bubbleplot <- function(data, 
-                       x_var, 
+bubbleplot <- function(x_var, 
                        xlabels ='',
                        y_var, 
                        ylabels = '',
@@ -112,19 +56,20 @@ bubbleplot <- function(data,
                        y_title,
                        clr_by_name,
                        palette = 'Set2'){
-
-    #ensure input variables are numeric for offset to work
+  
+  #ensure input variables are numeric for offset to work - currently messing up the order and axis labels are wrong
   if(is.numeric(x_var) == FALSE){
-    xlabels <- stringr::str_to_sentence(unique(tolower(x_var)))
-    x_var <- c(factor(x_var, order = TRUE))
+    x_var2 <- c(factor(x_var, ordered = TRUE))
+    labdfx <- data.frame(lbl = unique(x_var), order = unique(x_var2))
+    labdfx <- labdfx[order(labdfx$order),]
+    xlabels <- str_to_sentence(tolower(labdfx$lbl))
   }
   if(is.numeric(y_var) == FALSE){
-    ylabels <- str_to_sentence(unique(tolower(y_var)))
-    y_var <- c(factor(y_var, order = TRUE))
+    y_var2 <- c(factor(y_var, ordered = TRUE))
+    labdfy <- data.frame(lbl = unique(y_var), order = unique(y_var2))
+    labdfy <- labdfy[order(labdfy$order),]
+    ylabels <- str_to_sentence(tolower(labdfy$lbl))
   }
-  
-  #remove NAs from dataframe
-  #data <- na.omit(data)
   
   #if axis label inputs are blank, use numerical values instead
   if(paste(xlabels, collapse = '') == ''){
@@ -152,22 +97,22 @@ bubbleplot <- function(data,
   n3 <- cbind(n = 3, rbind(pos1, pos2, pos3))
   n4 <- cbind(n = 4, rbind(pos1, pos2, pos3, pos4))
   n5 <- cbind(n = 5, rbind(pos0, pos1, pos2, pos3, pos4))
-  mtrxlookup <- as.data.frame(rbind(n1,n2,n3,n4,n5))
-  clr_by_name <- c(unique(clr_var))
-  offset_table <- cbind(clr_by_name, filter(mtrxlookup, n == mtrxn)[,2:3])
-  data <- merge(data, offset_table, all.x = TRUE, by.x = clr_by,  by.y = 'clr_by_name')
+  mtrxlookup <- as.data.frame(rbind(n1, n2, n3, n4, n5))
+  offset_table <- cbind(clr_by_name = c(unique(clr_var)), filter(mtrxlookup, n == mtrxn)[,2:3])
+  data <- data.frame(clr_var, x_var2, x_var, y_var2, y_var, n)
+  data <- merge(data, offset_table, all.x = TRUE, by.x = 'clr_var',  by.y = 'clr_by_name')
   
   #create plot
   x <- data %>%
-    ggplot(mapping = aes (x=(x_var + offset_x), 
-                          y=(y_var + offset_y)#,
+    ggplot(mapping = aes (x=(x_var2 + offset_x), 
+                          y=(y_var2 + offset_y)#,
                           #text = sprintf('<a href="mailto:neal_haddaway@hotmail.com">Email</a>', outcome, inst)
                           )) +
-    geom_hline(yintercept = (2:length(unique(y_var))-0.5), 
+    geom_hline(yintercept = (2:length(unique(y_var2))-0.5), 
                colour = 'white', 
                size = .7, 
                alpha=0.8) +
-    geom_vline(xintercept = (2:length(unique(x_var))-0.5), 
+    geom_vline(xintercept = (2:length(unique(x_var2))-0.5), 
                colour = 'white', 
                size = .7, 
                alpha=0.8) +
@@ -208,15 +153,18 @@ bubbleplot <- function(data,
 }
 
 attach(data4plot)
-bubbleplot(data = data4plot, 
-         x_var = inst, 
-         y_var = outcome, 
+data4plot <- na.omit(data4plot) #remove NAs from dataframe
+bubbleplot(x_var = data4plot$inst, 
+         y_var = data4plot$outcome, 
          clr_var = data4plot$loc,
-         n = n,
+         n = data4plot$n,
          bg_col = '#F1EFF3',
          title = 'title',
          subtitle = 'subtitle',
          x_title = 'Institution',
          y_title = 'Outcome',
-         clr_by = 'loc',
-         palette = 'Set2')
+         clr_by_name = 'loc',
+         palette = 'Set2',
+         wrap_width = '10')
+
+
