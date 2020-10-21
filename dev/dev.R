@@ -112,7 +112,8 @@ bubbleplot <- function(data,
                        clr_by){
   x <- data %>%
     ggplot(mapping = aes (x=(x_var + offset_x), 
-                          y=(y_var + offset_y))) +
+                          y=(y_var + offset_y),
+                          text = sprintf('<a href="mailto:neal_haddaway@hotmail.com">Email</a>', outcome, inst))) +
     geom_hline(yintercept = (2:length(unique(y_var))-0.5), 
                colour = 'white', 
                size = .7, 
@@ -126,7 +127,8 @@ bubbleplot <- function(data,
     scale_size(range = c(.1, 6), 
                name = 'Number of studies') + 
     scale_color_brewer(palette="Set2",
-                       name = clr_by) +
+                       name = clr_by,
+                       guide = FALSE) +
     theme(panel.grid.major = element_blank(),
           panel.grid.minor = element_blank(),
           panel.background = element_rect(fill = bg_col,
@@ -150,9 +152,10 @@ bubbleplot <- function(data,
     scale_x_continuous(labels = xlabels, 
                        breaks = 1:6, 
                        limits = c(0.8,6.2)) + 
-    guides(color = guide_legend(override.aes = list(size = 5)),
-           size = guide_legend(override.aes = list(colour = 'darkgrey')))
-  ggplotly(x)
+    guides(
+           size = guide_legend(override.aes = list(colour = '#444444')))
+  y <- ggplotly(x)
+  layout(y, hovermode = 'closest')
 }
 
 attach(data4plot)
@@ -169,3 +172,21 @@ bubbleplot(data = data4plot,
          x_title = 'Outcome',
          y_title = 'Institution',
          clr_by = 'Location')
+
+
+library(dash)
+library(dashCoreComponents)
+library(dashHtmlComponents)
+
+y <- plot_ly(x)
+
+app <- Dash$new()
+app$layout(
+  htmlDiv(
+    list(
+      dccGraph(figure=y) 
+    )
+  )
+)
+
+app$run_server(debug=TRUE, dev_tools_hot_reload=FALSE)
