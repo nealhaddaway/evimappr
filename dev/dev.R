@@ -108,41 +108,50 @@ bubbleplot <- function(data,
                        title,
                        subtitle,
                        x_title,
-                       y_title){
+                       y_title,
+                       clr_by){
   x <- data %>%
     ggplot(mapping = aes (x=(x_var + offset_x), 
                           y=(y_var + offset_y))) +
-    geom_hline(yintercept = 1:length(unique(y_var)), 
+    geom_hline(yintercept = (2:length(unique(y_var))-0.5), 
                colour = 'white', 
-               size = 16, 
-               alpha=0.2) +
-    geom_vline(xintercept = 1:length(unique(x_var)), 
+               size = .7, 
+               alpha=0.8) +
+    geom_vline(xintercept = (2:length(unique(x_var))-0.5), 
                colour = 'white', 
-               size = 16, 
-               alpha=0.2) +
+               size = .7, 
+               alpha=0.8) +
+    geom_point(aes(colour = clr_var, 
+                   size = n)) +
     scale_size(range = c(.1, 6), 
-               name="Number of studies") +
+               name = 'Number of studies') + 
+    scale_color_brewer(palette="Set2",
+                       name = clr_by) +
     theme(panel.grid.major = element_blank(),
           panel.grid.minor = element_blank(),
           panel.background = element_rect(fill = bg_col,
                                           size = 2, 
                                           linetype = "solid"),
           axis.text.x = element_text(size = 10, 
-                                     angle = 45), 
+                                     angle = 45,
+                                     hjust=0.95,
+                                     vjust=0.95), 
           axis.text.y = element_text(size = 10, 
-                                     angle = 45)) +
-    geom_point(mapping = aes(colour = clr_var, 
-                             size = n)) +
+                                     angle = 45,
+                                     hjust=0.8,
+                                     vjust=0.95)) +
     labs(title = title, 
          subtitle = subtitle, 
          x = x_title, 
          y = y_title) +
     scale_y_continuous(labels = ylabels, 
                        breaks = 1:8, 
-                       limits = c(1,8)) +
+                       limits = c(0.8,8.2)) +
     scale_x_continuous(labels = xlabels, 
                        breaks = 1:6, 
-                       limits = c(1,6))
+                       limits = c(0.8,6.2)) + 
+    guides(color = guide_legend(override.aes = list(size = 5)),
+           size = guide_legend(override.aes = list(colour = 'darkgrey')))
   ggplotly(x)
 }
 
@@ -154,8 +163,9 @@ bubbleplot(data = data4plot,
          n = n,
          offset_x = offset_x, 
          offset_y = offset_y,
-         bg_col = '#BFD5E3',
+         bg_col = '#F1EFF3',
          title = 'title',
          subtitle = 'subtitle',
-         x_title = 'x',
-         y_title = 'y')
+         x_title = 'Outcome',
+         y_title = 'Institution',
+         clr_by = 'Location')
