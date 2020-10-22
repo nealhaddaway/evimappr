@@ -1,24 +1,17 @@
 "outcome","inst","loc","n"
 "Behaviour and Social Wellbeing","College/University","Asia",1
-"Behaviour and Social Wellbeing","College/University","Rest of Europe",2
 "Behaviour and Social Wellbeing","College/University","UK/Ireland",2
 "Behaviour and Social Wellbeing","College/University","USA/Canada",3
 "Behaviour and Social Wellbeing","Middle/High School","Africa",1
 "Behaviour and Social Wellbeing","Middle/High School","Asia",8
 "Behaviour and Social Wellbeing","Middle/High School","Australia/New Zealand",10
-"Behaviour and Social Wellbeing","Middle/High School","Central/South America",2
-"Behaviour and Social Wellbeing","Middle/High School","Rest of Europe",14
 "Behaviour and Social Wellbeing","Middle/High School","UK/Ireland",8
 "Behaviour and Social Wellbeing","Middle/High School","USA/Canada",46
-"Behaviour and Social Wellbeing","Multiple","Rest of Europe",2
 "Behaviour and Social Wellbeing","Multiple","USA/Canada",8
-"Behaviour and Social Wellbeing","Preschool/Kindergarten","Rest of Europe",3
 "Behaviour and Social Wellbeing","Preschool/Kindergarten","USA/Canada",18
 "Behaviour and Social Wellbeing","Primary/Elementary","Africa",1
 "Behaviour and Social Wellbeing","Primary/Elementary","Asia",8
 "Behaviour and Social Wellbeing","Primary/Elementary","Australia/New Zealand",1
-"Behaviour and Social Wellbeing","Primary/Elementary","Central/South America",1
-"Behaviour and Social Wellbeing","Primary/Elementary","Rest of Europe",13
 "Behaviour and Social Wellbeing","Primary/Elementary","UK/Ireland",11
 "Behaviour and Social Wellbeing","Primary/Elementary","USA/Canada",42
 "Behaviour and Social Wellbeing","Special School","Asia",1
@@ -28,18 +21,14 @@
 "Literacy/English","Middle/High School","USA/Canada",20
 "Literacy/English","Multiple","Asia",1
 "Literacy/English","Multiple","Australia/New Zealand",1
-"Literacy/English","Multiple","Rest of Europe",2
 "Literacy/English","Multiple","UK/Ireland",3
 "Literacy/English","Multiple","USA/Canada",11
 "Literacy/English","Preschool/Kindergarten","Asia",1
 "Literacy/English","Preschool/Kindergarten","Australia/New Zealand",1
-"Literacy/English","Preschool/Kindergarten","Rest of Europe",1
 "Literacy/English","Preschool/Kindergarten","USA/Canada",24
 "Literacy/English","Primary/Elementary","Africa",3
 "Literacy/English","Primary/Elementary","Asia",6
 "Literacy/English","Primary/Elementary","Australia/New Zealand",3
-"Literacy/English","Primary/Elementary","Central/South America",1
-"Literacy/English","Primary/Elementary","Rest of Europe",9
 "Literacy/English","Primary/Elementary","UK/Ireland",20
 "Literacy/English","Primary/Elementary","USA/Canada",80
 "Literacy/English","Special School","UK/Ireland",3
@@ -47,102 +36,71 @@
 "Numeracy/Maths","College/University","UK/Ireland",2
 "Numeracy/Maths","College/University","USA/Canada",4
 "Numeracy/Maths","Middle/High School","Asia",1
-"Numeracy/Maths","Middle/High School","Rest of Europe",2
 "Numeracy/Maths","Middle/High School","UK/Ireland",1
 "Numeracy/Maths","Middle/High School","USA/Canada",17
 "Numeracy/Maths","Multiple","USA/Canada",4
-"Numeracy/Maths","Preschool/Kindergarten","Rest of Europe",1
 "Numeracy/Maths","Preschool/Kindergarten","USA/Canada",5
 "Numeracy/Maths","Primary/Elementary","Asia",2
 "Numeracy/Maths","Primary/Elementary","Australia/New Zealand",1
-"Numeracy/Maths","Primary/Elementary","Rest of Europe",2
 "Numeracy/Maths","Primary/Elementary","UK/Ireland",7
 "Numeracy/Maths","Primary/Elementary","USA/Canada",19
 "Numeracy/Maths","Special School","UK/Ireland",1
 "Numeracy/Maths","Special School","USA/Canada",1
-"Other School Subjects","College/University","Rest of Europe",4
 "Other School Subjects","College/University","USA/Canada",5
 "Other School Subjects","Middle/High School","Asia",4
 "Other School Subjects","Middle/High School","Australia/New Zealand",1
-"Other School Subjects","Middle/High School","Multiple",1
-"Other School Subjects","Middle/High School","Rest of Europe",5
 "Other School Subjects","Middle/High School","UK/Ireland",2
 "Other School Subjects","Middle/High School","USA/Canada",14
 "Other School Subjects","Multiple","USA/Canada",4
 "Other School Subjects","Preschool/Kindergarten","Asia",1
-"Other School Subjects","Preschool/Kindergarten","Rest of Europe",1
 "Other School Subjects","Preschool/Kindergarten","USA/Canada",2
 "Other School Subjects","Primary/Elementary","Australia/New Zealand",1
-"Other School Subjects","Primary/Elementary","Rest of Europe",2
 "Other School Subjects","Primary/Elementary","UK/Ireland",1
 "Other School Subjects","Primary/Elementary","USA/Canada",14
-"physical Health and Wellbeing","Middle/High School","Rest of Europe",1
 "Physical Health and Wellbeing","College/University","Africa",1
-"Physical Health and Wellbeing","College/University","Rest of Europe",1
 "Physical Health and Wellbeing","College/University","USA/Canada",9
 "Physical Health and Wellbeing","Middle/High School","Africa",9
 "Physical Health and Wellbeing","Middle/High School","Asia",10
 "Physical Health and Wellbeing","Middle/High School","Australia/New Zealand",17
-"Physical Health and Wellbeing","Middle/High School","Central/South America",4
-"Physical Health and Wellbeing","Middle/High School","Multiple",2
-"Physical Health and Wellbeing","Middle/High School","Rest of Europe",30
 "Physical Health and Wellbeing","Middle/High School","UK/Ireland",19
 "Physical Health and Wellbeing","Middle/High School","USA/Canada",41
 "Physical Health and Wellbeing","Multiple","Asia",2
 "Physical Health and Wellbeing","Multiple","Australia/New Zealand",1
-"Physical Health and Wellbeing","Multiple","Central/South America",2
-"Physical Health and Wellbeing","Multiple","Rest of Europe",2
 "Physical Health and Wellbeing","Multiple","UK/Ireland",1
 "Physical Health and Wellbeing","Multiple","USA/Canada",6
 "Physical Health and Wellbeing","Preschool/Kindergarten","Asia",2
-"Physical Health and Wellbeing","Preschool/Kindergarten","Rest of Europe",6
 "Physical Health and Wellbeing","Preschool/Kindergarten","USA/Canada",5
 "Physical Health and Wellbeing","Primary/Elementary","Africa",2
 "Physical Health and Wellbeing","Primary/Elementary","Asia",7
 "Physical Health and Wellbeing","Primary/Elementary","Australia/New Zealand",6
-"Physical Health and Wellbeing","Primary/Elementary","Central/South America",5
-"Physical Health and Wellbeing","Primary/Elementary","Rest of Europe",14
 "Physical Health and Wellbeing","Primary/Elementary","UK/Ireland",11
 "Physical Health and Wellbeing","Primary/Elementary","USA/Canada",18
 "Physical Health and Wellbeing","Special School","Australia/New Zealand",1
-"Physical Health and Wellbeing","Special School","Rest of Europe",1
 "Professional Training","College/University","Asia",18
 "Professional Training","College/University","Australia/New Zealand",11
-"Professional Training","College/University","Central/South America",2
-"Professional Training","College/University","Multiple",2
-"Professional Training","College/University","Rest of Europe",35
 "Professional Training","College/University","UK/Ireland",19
 "Professional Training","College/University","USA/Canada",60
-"Professional Training","Middle/High School","Rest of Europe",1
 "Professional Training","Middle/High School","UK/Ireland",1
 "Professional Training","Multiple","USA/Canada",2
 "Professional Training","Primary/Elementary","USA/Canada",1
-"Range of Academic Outcomes","College/University","Rest of Europe",1
 "Range of Academic Outcomes","College/University","USA/Canada",5
 "Range of Academic Outcomes","Middle/High School","Asia",1
-"Range of Academic Outcomes","Middle/High School","Central/South America",1
-"Range of Academic Outcomes","Middle/High School","Rest of Europe",1
 "Range of Academic Outcomes","Middle/High School","UK/Ireland",2
 "Range of Academic Outcomes","Middle/High School","USA/Canada",11
 "Range of Academic Outcomes","Multiple","USA/Canada",5
 "Range of Academic Outcomes","Preschool/Kindergarten","Africa",1
 "Range of Academic Outcomes","Preschool/Kindergarten","USA/Canada",5
 "Range of Academic Outcomes","Primary/Elementary","Africa",1
-"Range of Academic Outcomes","Primary/Elementary","Rest of Europe",3
 "Range of Academic Outcomes","Primary/Elementary","UK/Ireland",4
 "Range of Academic Outcomes","Primary/Elementary","USA/Canada",10
 "Range of Academic Outcomes","Special School","USA/Canada",1
-"Study-Related Skills","College/University","Rest of Europe",4
 "Study-Related Skills","College/University","UK/Ireland",1
 "Study-Related Skills","College/University","USA/Canada",6
-"Study-Related Skills","Middle/High School","Rest of Europe",1
 "Study-Related Skills","Middle/High School","USA/Canada",6
 "Study-Related Skills","Multiple","Asia",2
-"Study-Related Skills","Multiple","Rest of Europe",3
 "Study-Related Skills","Preschool/Kindergarten","Asia",1
 "Study-Related Skills","Preschool/Kindergarten","USA/Canada",1
 "Study-Related Skills","Primary/Elementary","Asia",1
 "Study-Related Skills","Primary/Elementary","Australia/New Zealand",1
 "Study-Related Skills","Primary/Elementary","UK/Ireland",2
 "Study-Related Skills","Primary/Elementary","USA/Canada",8
-"Study-Related Skills","Special School","Rest of Europe",1
