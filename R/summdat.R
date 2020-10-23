@@ -30,7 +30,9 @@ summdat <- function(data,
                     col3){
   
   data <- data %>% 
-    dplyr::count(get(col1), get(col2), get(col3)) %>%
+    dplyr::count(get(col1), 
+                 get(col2), 
+                 get(col3)) %>%
     na.omit()
   names(data)[1] <- col1
   names(data)[2] <- col2
