@@ -162,8 +162,8 @@ bubbleplot <- function(x_var,
   #create static plot
   x <- data %>%
     ggplot2::ggplot(mapping = ggplot2::aes (x=(x_var2 + offset_x), #offset variables according to their matrix location
-                                            y=(y_var2 + offset_y),
-                                            text = hovertext
+                                            y=(y_var2 + offset_y)#,
+                                            #text = hovertext
                                    )) +
     ggplot2::geom_hline(yintercept = (2:length(unique(y_var2))-0.5), #add lines separating bubbles
                         colour = 'white', 
@@ -207,7 +207,8 @@ bubbleplot <- function(x_var,
                                 limits = c(0.8,(length(xlabels)+0.2)))
   
   if(interactive == TRUE){
-    x <- plotly::ggplotly(x) #make interactive plot
+    x <- plotly::ggplotly(x, 
+                          tooltip="text") #make interactive plot
     plotly::layout(x, #add hoverover labels and plot
                    hovermode = 'closest')
   }
