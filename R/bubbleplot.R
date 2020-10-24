@@ -14,6 +14,8 @@
 #' y_var is ordinal.
 #' @param clr_var Variable (vector) used to colour bubbles. Up to five 
 #' levels of the vector may be plotted as different bubbles.
+#' @param clr_legend Optional name of clr_var variable used to colour bubbles. 
+#' This string is used to label the legend.
 #' @param n Numerical variable corresponding to the number of studies and 
 #' used to alter the size of the bubbles.
 #' @param wrap_width The width of axis labels using character wrapping. 
@@ -40,6 +42,7 @@
 #' plot <- bubbleplot(x_var = inst, 
 #'     y_var = outcome, 
 #'     clr_var = loc,
+#'     clr_legend = 'Location',
 #'     n = n,
 #'     bg_col = '#F1EFF3',
 #'     title = 'RCTs in Education',
@@ -47,7 +50,7 @@
 #'     x_title = 'Institution',
 #'     y_title = 'Outcome',
 #'     palette = 'Set2',
-#'     interactive = TRUE,
+#'     interactive = FALSE,
 #'     hovertext = 'test')
 #' plot
 #' }
@@ -57,6 +60,7 @@ bubbleplot <- function(x_var,
                        y_var, 
                        ylabels = '',
                        clr_var, #variable by which bubbles are coloured
+                       clr_legend = '', #name for the colour legend
                        n, #variable for number of studies in the cell
                        wrap_width = 10,
                        bg_col = '#BFD5E3',
@@ -159,11 +163,20 @@ bubbleplot <- function(x_var,
                 by.x = 'clr_var', 
                 by.y = 'clr_by_name')
   
+  #supress bubble colour legend title if interactive
+  if(interactive == TRUE){
+    bub_legend = ''
+  }
+  
   #create static plot
   x <- data %>%
     ggplot2::ggplot(mapping = ggplot2::aes (x=(x_var2 + offset_x), #offset variables according to their matrix location
-                                            y=(y_var2 + offset_y)#,
-                                            #text = hovertext
+                                            y=(y_var2 + offset_y),
+                                            label1 = x_var,
+                                            label2 = y_var,
+                                            label3 = clr_var,
+                                            label4 = n,
+                                            text = hovertext
                                    )) +
     ggplot2::geom_hline(yintercept = (2:length(unique(y_var2))-0.5), #add lines separating bubbles
                         colour = 'white', 
@@ -176,11 +189,11 @@ bubbleplot <- function(x_var,
     ggplot2::geom_point(ggplot2::aes(colour = clr_var, #add bubbles
                                      size = n)) +
     ggplot2::scale_color_brewer(palette = palette, #colour bubbles
-                                guide = FALSE,
-                                name = 'Bubbles') +
+                                #guide = FALSE,
+                                name = clr_legend) +
     ggplot2::scale_size(range = c(.1, 6), #scale bubbles by size of n
-                        name = '',
-                        guide = FALSE
+                        #guide = FALSE,
+                        name = bub_legend
                         ) + 
     ggplot2::theme(panel.grid.major = ggplot2::element_blank(), #remove grid lines
                    panel.grid.minor = ggplot2::element_blank(),
@@ -208,7 +221,7 @@ bubbleplot <- function(x_var,
   
   if(interactive == TRUE){
     x <- plotly::ggplotly(x, 
-                          tooltip="text") #make interactive plot
+                          tooltip = c('label1', 'label2', 'label3', 'label4', 'text')) #make interactive plot
     plotly::layout(x, #add hoverover labels and plot
                    hovermode = 'closest')
   }
