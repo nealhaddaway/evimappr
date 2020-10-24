@@ -103,7 +103,7 @@ bubbleplot <- function(x_var,
   
   #error checking
   #check that there are a maximum of five colour-by variables and return error if not
-  if(length(unique(clr_var)) > 5) stop('levels of clr_var >5. Cannot plot.')
+  if(length(unique(clr_var)) > 5) stop('Levels of clr_var >5. Cannot plot.')
   
   #create offset table
   mtrxn <- length(unique(clr_var)) #number of bubbles needed
