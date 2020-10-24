@@ -101,6 +101,13 @@ bubbleplot <- function(x_var,
   ylabels <- stringr::str_wrap(ylabels, 
                                width = wrap_width)
   
+  #convert clr_var to a factor for plotting
+  clr_var <- as.factor(clr_var)
+  
+  #error checking
+  #check that there are a maximum of five colour-by variables and return error if not
+  if(length(unique(clr_var)) > 5) stop('levels of clr_var >5. Cannot plot.')
+  
   #create offset table
   mtrxn <- length(unique(clr_var)) #number of bubbles needed
   #matrix positions (max n = 5)
