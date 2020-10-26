@@ -16,6 +16,8 @@
 #' levels of the vector may be plotted as different bubbles.
 #' @param clr_legend Optional name of clr_var variable used to colour bubbles. 
 #' This string is used to label the legend.
+#' @param bub_legend Optional label for the bubble size legend. Default is 
+#' 'Number of studies'.
 #' @param n Numerical variable corresponding to the number of studies and 
 #' used to alter the size of the bubbles.
 #' @param wrap_width The width of axis labels using character wrapping. 
@@ -50,7 +52,7 @@
 #'     x_title = 'Institution',
 #'     y_title = 'Outcome',
 #'     palette = 'Set2',
-#'     interactive = FALSE,
+#'     interactive = TRUE,
 #'     hovertext = 'test')
 #' plot
 #' }
@@ -61,6 +63,7 @@ bubbleplot <- function(x_var,
                        ylabels = '',
                        clr_var, #variable by which bubbles are coloured
                        clr_legend = '', #name for the colour legend
+                       bub_legend = 'Number of studies',
                        n, #variable for number of studies in the cell
                        wrap_width = 10,
                        bg_col = '#BFD5E3',
