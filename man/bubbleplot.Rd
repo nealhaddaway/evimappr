@@ -10,6 +10,8 @@ bubbleplot(
   y_var,
   ylabels = "",
   clr_var,
+  clr_legend = "",
+  bub_legend = "Number of studies",
   n,
   wrap_width = 10,
   bg_col = "#BFD5E3",
@@ -39,6 +41,12 @@ y_var is ordinal.}
 
 \item{clr_var}{Variable (vector) used to colour bubbles. Up to five
 levels of the vector may be plotted as different bubbles.}
+
+\item{clr_legend}{Optional name of clr_var variable used to colour bubbles.
+This string is used to label the legend.}
+
+\item{bub_legend}{Optional label for the bubble size legend. Default is
+'Number of studies'.}
 
 \item{n}{Numerical variable corresponding to the number of studies and
 used to alter the size of the bubbles.}
@@ -81,6 +89,7 @@ attach(data)
 plot <- bubbleplot(x_var = inst, 
     y_var = outcome, 
     clr_var = loc,
+    clr_legend = 'Location',
     n = n,
     bg_col = '#F1EFF3',
     title = 'RCTs in Education',

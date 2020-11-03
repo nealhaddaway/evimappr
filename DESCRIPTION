@@ -1,5 +1,5 @@
 Package: evimappr
-Title: Plots Bubble Evidence Maps
+Title: Plots Bubble or Grid Evidence Maps
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Neal R",
@@ -15,16 +15,21 @@ Authors@R:
 Description: Evidence maps (including systematic maps and evidence and gap maps) 
     produce databases of studies that include multiple categorical 'coding' variables 
     that describe the evidence base. This package allows review authors to convert an
-    evidence map database into a 'bubble evidence map', of a heat map (i.e. a matrix 
-    of two categorical variables) that contains bubbles coloured and sized according 
-    to additional categorical and continuous variables.
+    evidence map database into a 'bubble evidence map' or a 'grid' plot, of a heat map 
+    (i.e. a matrix of two categorical variables) that can contain bubbles coloured and 
+    sized according to additional categorical and continuous variables, or a 
+    traditional grid-style heat map if no third categorical variable is supplied.
 License: GPL-3
 Imports:
     dplyr,
+    htmltools,
+    htmlwidgets,
+    jsonlite,
     magrittr,
     ggplot2,
     plotly,
     RCurl,
+    stats,
     stringr
 Suggests:
     knitr,
